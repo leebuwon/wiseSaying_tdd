@@ -47,7 +47,7 @@ class AppTest {
         assertThat(rs)
                 .contains("== 명언 앱 ==")
                 .contains("명령) ")
-                .contains("프로그램이 종료되었습니다.")
+                .contains("명언 앱이 종료되었습니다.")
                 .doesNotContain("올바르지 않은 명령입니다.");
     }
 
@@ -95,5 +95,27 @@ class AppTest {
                 .contains("1번 명언이 등록되었습니다.")
                 .contains("2번 명언이 등록되었습니다.")
                 .contains("2번 명언이 등록되었습니다.");
+    }
+
+    @Test
+    @DisplayName("명언을 목록으로 가져온다.")
+    public void t7() {
+        String rs = AppTestRunner.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                내일을 사랑하라.
+                작자미상
+                목록
+                """);
+
+        assertThat(rs)
+                .contains("1번 명언이 등록되었습니다.")
+                .contains("2번 명언이 등록되었습니다.")
+                .contains("번호 / 명언 / 작가")
+                .contains("-----------------------------")
+                .contains("2 / 내일을 사랑하라. / 작자미상")
+                .contains("1 / 현재를 사랑하라. / 작자미상");
     }
 }
