@@ -60,4 +60,40 @@ class AppTest {
                 .contains("올바르지 않은 명령입니다.");
     }
     // 앱 테스트 끝
+
+    @Test
+    @DisplayName("등록화면에서 명언과 작가를 입력받는다.")
+    public void t5() {
+        String rs = AppTestRunner.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                """);
+
+        assertThat(rs)
+                .contains("명언 : ")
+                .contains("작가 : ")
+                .contains("1번 명언이 등록되었습니다.");
+    }
+
+    @Test
+    @DisplayName("명언이 등록될 때 마다 생선되는 번호가 증가한다.")
+    public void t6() {
+        String rs = AppTestRunner.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                내일을 사랑하라.
+                작자미상
+                등록
+                내일을 사랑하라.
+                작자미상
+                """);
+
+        assertThat(rs)
+                .contains("1번 명언이 등록되었습니다.")
+                .contains("2번 명언이 등록되었습니다.")
+                .contains("2번 명언이 등록되었습니다.");
+    }
 }
